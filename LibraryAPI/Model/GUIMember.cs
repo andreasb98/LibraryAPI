@@ -23,5 +23,7 @@ namespace LibraryAPI.Model
         [Column("email")]
         [StringLength(100)]
         public string Email { get; set; }
+        [Column("token")]
+        public string Token { get; set; }
     }
 }

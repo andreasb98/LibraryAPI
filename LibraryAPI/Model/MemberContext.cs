@@ -9,11 +9,16 @@ namespace LibraryAPI.Model
 {
     public class MemberContext : IdentityDbContext
     {
+        public virtual DbSet<Member> Members { get; set; }
+        public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
+
+
+
         public MemberContext(DbContextOptions<MemberContext> options)
             :base(options)
         {
             Database.EnsureCreated();
         }
-        public DbSet<Member> Members { get; set; }
+        
     }
 }

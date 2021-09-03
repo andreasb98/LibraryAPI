@@ -4,14 +4,16 @@ using LibraryAPI.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibraryAPI.Migrations.Member
 {
     [DbContext(typeof(MemberContext))]
-    partial class MemberContextModelSnapshot : ModelSnapshot
+    [Migration("20210902091959_Adding refresh token table")]
+    partial class Addingrefreshtokentable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

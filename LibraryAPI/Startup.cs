@@ -47,7 +47,20 @@ namespace LibraryAPI
 
 
             //Authentication
+            var key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
             services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+            var tokenValidationParams = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                RequireExpirationTime = false
+            };
+
+            services.AddSingleton(tokenValidationParams);
+
             services.AddAuthentication(opt =>
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -55,19 +68,10 @@ namespace LibraryAPI
                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
                 .AddJwtBearer(jwt =>
-                {
-                    var key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
+                {                  
                     jwt.SaveToken = true;
-                    jwt.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateLifetime = true,
-                        RequireExpirationTime = false
-                    };
-                });
+                    jwt.TokenValidationParameters = tokenValidationParams;
+                    });              
 
             services.AddDefaultIdentity<IdentityUser>(Options => Options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<MemberContext>();

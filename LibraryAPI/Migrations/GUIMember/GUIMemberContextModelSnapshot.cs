@@ -41,6 +41,10 @@ namespace LibraryAPI.Migrations.GUIMember
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("name");
 
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("token");
+
                     b.HasKey("Id");
 
                     b.ToTable("Member");

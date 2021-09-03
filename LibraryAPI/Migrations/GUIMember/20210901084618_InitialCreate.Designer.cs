@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryAPI.Migrations.GUIMember
 {
     [DbContext(typeof(GUIMemberContext))]
-    [Migration("20210830191336_InitialCreate")]
+    [Migration("20210901084618_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,10 @@ namespace LibraryAPI.Migrations.GUIMember
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("name");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("token");
 
                     b.HasKey("Id");
 
