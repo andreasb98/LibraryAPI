@@ -71,9 +71,14 @@ namespace LibraryAPI
                 {                  
                     jwt.SaveToken = true;
                     jwt.TokenValidationParameters = tokenValidationParams;
-                    });              
+                    });
 
-            services.AddDefaultIdentity<IdentityUser>(Options => Options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(Options =>
+            {
+                Options.SignIn.RequireConfirmedAccount = true;
+                Options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ ";
+                
+            })
                 .AddEntityFrameworkStores<MemberContext>();
 
             
